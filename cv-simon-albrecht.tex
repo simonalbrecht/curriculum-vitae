@@ -62,13 +62,15 @@
 % ---------------------------------------
 % AltaCV Customisation
 % ---------------------------------------
-\definecolor{Mulberry}{HTML}{72243D}
-\definecolor{SlateGrey}{HTML}{2E2E2E}
-\definecolor{LightGrey}{HTML}{666666}
-\colorlet{heading}{SlateGrey}
-\colorlet{accent}{Mulberry}
-\colorlet{emphasis}{SlateGrey}
-\colorlet{body}{LightGrey}
+\definecolor{Azure}{HTML}{3099BB}
+\definecolor{Charcoal}{HTML}{323232}
+\definecolor{Slate}{HTML}{222222}
+
+\colorlet{heading}{Charcoal}
+\colorlet{accent}{Azure}
+\colorlet{emphasis}{Slate}
+\colorlet{body}{Charcoal}
+\colorlet{tagline}{Azure}
 
 \renewcommand{\emailsymbol}{\faEnvelope}
 \renewcommand{\homepagesymbol}{\faGlobe}
@@ -76,14 +78,18 @@
 \newcommand{\maritialstatussymbol}{\faHeart}
 \newcommand{\nationalitysymbol}{\faFlag}
 
+% Info element without colored icon
+\renewcommand{\printinfo}[2]{\mbox{\textcolor{body}{\normalfont #1}\hspace{0.5em}#2\hspace{2em}}}
+
 % Custom Skill/Language Rating Marker
 \renewcommand{\ratingmarker}{\faCircle}
+\newcommand{\ratingemptymarker}{\faCircleO}
 
 % Skill with normal/thin font instead of bold
 \renewcommand{\cvskill}[2]{%
 \textcolor{emphasis}{#1}\hfill
 \foreach \x in {1,...,5}{%
-  \space{\ifnumgreater{\x}{#2}{\color{body!30}}{\color{accent}}\ratingmarker}}\par%
+  \space{\ifnumgreater{\x}{#2}{\color{body!40}\ratingemptymarker}{\color{accent}\ratingmarker}}}\par%
 }
 
 % CV Event with customised fonts and better display of time range and location
@@ -91,11 +97,24 @@
   {\Large\color{emphasis}#1\par}
   \medskip\normalsize
   \ifstrequal{#2}{}{}{
-  	\textbf{\color{accent}#2}}\hspace{0.5em}
+  	{\color{accent}#2}}\hspace{0.5em}
   \ifstrequal{#3}{}{}{{
   	\small{\faCalendar\hspace{0.5em}#3}}}\hspace{0.5em}%
   \ifstrequal{#4}{}{}{{
   	\small{\faMapMarker\hspace{0.5em}#4}}}\par
+  \medskip\normalsize
+}
+
+% CV Event, where location and time range are on their own separate lines
+\newcommand{\cveventbreak}[4]{%
+  {\Large\color{emphasis}#1\par}
+  \medskip\normalsize
+  \ifstrequal{#2}{}{}{
+  	{\color{accent}#2}}
+  \ifstrequal{#3}{}{}{{
+  	\par\smallskip\small{\faCalendar\hspace{0.5em}#3}}}\hspace{0.5em}%
+  \ifstrequal{#4}{}{}{{
+  	\par\smallskip\small{\faMapMarker\hspace{0.5em}#4}}}\par
   \medskip\normalsize
 }
 
@@ -107,13 +126,12 @@
   \bigskip%
   \ifstrequal{#1}{}{}{\marginpar{\vspace*{\dimexpr1pt-\baselineskip}\raggedright\input{#1}}}%
   {\color{heading}\LARGE\bfseries\MakeUppercase{#2}}\\[-0.5ex]%
-  {\color{heading}\rule{\linewidth}{0.5pt}\par}\medskip
+  {\color{body!60}\rule{\linewidth}{0.5pt}\par}\medskip
 }
-
 
 \begin{document}
 	\name{Simon Albrecht}
-	\tagline{\normalfont\Large Full-Stack Software Engineer}
+	\tagline{\color{tagline}\normalfont\Large Full-Stack Software Engineer}
 	
 	\personalinfo{
 		\medskip
