@@ -1,6 +1,18 @@
 %!TEX TS-program = pdflatex
 %!TEX encoding = UTF-8 Unicode
 
+% +++++++++++++++++++++++++++++++++++++++
+% Curriculum Vitae
+% Author: Simon Albrecht <simon@simonalbrecht.ch>
+% Version: 1.0.0
+% 
+% Based on AltaCV by LianTze Lim <liantze@gmail.com>.
+%
+% Licensed under BSD-3-Clause.
+% Copyright (c) 2019, Simon Albrecht. 
+% All rights reserved.
+% +++++++++++++++++++++++++++++++++++++++
+
 \documentclass[11pt, a4paper, ragged2e]{altacv}
 
 % ---------------------------------------
@@ -60,9 +72,22 @@
 \usepackage{paracol}
 
 % ---------------------------------------
+% Hyphenation
+% ---------------------------------------
+\hyphenation{DevOps}
+
+% ---------------------------------------
 % Misc
 % ---------------------------------------
-\usepackage[hidelinks]{hyperref}
+\usepackage[
+	hidelinks,
+	pdfauthor={Simon Albrecht},
+	pdftitle={CV Simon Albrecht},
+	pdfsubject={Resumé},
+	pdfkeywords={simon albrecht, curriculum vitae, cv, resume, biography, latex},
+	pdfcreator={pdflatex},
+	pdflang={en-GB}
+]{hyperref}
 
 % Fix issue with LaTeX error related to dead
 % output cycles: https://github.com/Tufte-LaTeX/tufte-latex/issues/116
@@ -137,6 +162,11 @@
   {\color{heading}\LARGE\bfseries\MakeUppercase{#2}}\\[-0.5ex]%
   {\color{body!60}\rule{\linewidth}{0.5pt}\par}\medskip
 }
+
+
+% +++++++++++++++++++++++++++++++++++++++
+% Document
+% +++++++++++++++++++++++++++++++++++++++
 
 \begin{document}
 	\name{Simon Albrecht}
@@ -234,8 +264,6 @@
 
 \end{rightcolumn}
 \end{paracol}
-
-
 
 \end{document}
 
