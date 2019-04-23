@@ -12,6 +12,7 @@ The layout is based on the [AltaCV](https://github.com/liantze/AltaCV) template.
 * Compile with `$ pdflatex cv-simon-albrecht.tex`
 
 ## Copyright and license
-Licensed under the BSD-3-Clause license.
-Copyright (c) 2019, Simon Albrecht
+Licensed under the BSD-3-Clause license.  
+
+Copyright (c) 2019, Simon Albrecht  
 All right reserved.
