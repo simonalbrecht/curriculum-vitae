@@ -9,7 +9,7 @@ This repository contains the LaTex sources for Simon Albrecht's Curriculum Vitae
 The layout is based on the [AltaCV](https://github.com/liantze/AltaCV) template. The font is [Fira Sans](https://mozilla.github.io/Fira/).
 
 ## Download
-* Download the [latest version of the CV](https://github.com/simonalbrecht/curriculum-vitae/releases/download/v1.0.0/cv-simon-albrecht.pdf)
+* Download the [latest version of the CV](https://github.com/simonalbrecht/curriculum-vitae/releases/download/v1.0.1/cv-simon-albrecht.pdf)
 
 ## Getting Started
 * Install [TeX Live](https://tug.org/texlive/) or [MacTeX](https://tug.org/mactex/)
