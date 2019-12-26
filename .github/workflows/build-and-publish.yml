@@ -36,9 +36,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: cv
+      - name: Read version file
+        shell: bash
+        run: echo "::set-env name=VERSION::$(cat ./VERSION)"
       - name: Create versioned copy of PDF
         shell: bash
-        run: cp "./cv/cv-simon-albrecht.pdf" "./cv/cv-simon-albrecht-$(cat VERSION).pdf"
+        run: cp "./cv/cv-simon-albrecht.pdf" "./cv/cv-simon-albrecht-$VERSION.pdf"
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
