@@ -1,0 +1,36 @@
+name: Build and Publish
+
+on: [push]
+
+jobs:
+  build:
+    name: Build PDF
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Compile LaTeX
+      uses: dante-ev/latex-action@master
+      with:
+        root_file: cv-simon-albrecht.tex
+        args: -pdf -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+    - name: Archive compiled PDF
+      uses: actions/upload-artifact@v1
+      with:
+        name: cv
+        path: cv-simon-albrecht.pdf
+
+  publish:
+    name: Publish compiled PDF
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download compiled PDF from build step
+        uses: actions/download-artifact@v1
+        with:
+          name: cv
+    
