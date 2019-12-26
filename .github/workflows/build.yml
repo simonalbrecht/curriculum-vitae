@@ -1,9 +1,6 @@
-name: Build and Publish
+name: Build
 
-on: 
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   build:
@@ -25,15 +22,3 @@ jobs:
       with:
         name: cv
         path: cv-simon-albrecht.pdf
-
-  publish:
-    name: Publish compiled PDF
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download compiled PDF from build step
-        uses: actions/download-artifact@v1
-        with:
-          name: cv
-    
