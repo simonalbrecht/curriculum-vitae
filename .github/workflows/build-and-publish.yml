@@ -32,16 +32,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
       - name: Download compiled PDF from build step
         uses: actions/download-artifact@v1
         with:
           name: cv
-      - name: Read version file
-        shell: bash
-        run: echo "::set-env name=VERSION::$(cat ./VERSION)"
       - name: Create versioned copy of PDF
         shell: bash
-        run: cp "./cv/cv-simon-albrecht.pdf" "./cv/cv-simon-albrecht-$VERSION.pdf"
+        run: cp "./cv/cv-simon-albrecht.pdf" "./cv/cv-simon-albrecht-$(cat ./VERSION).pdf"
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
