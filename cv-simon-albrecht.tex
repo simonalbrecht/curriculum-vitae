@@ -4,12 +4,11 @@
 % +++++++++++++++++++++++++++++++++++++++
 % Curriculum Vitae
 % Author: Simon Albrecht <simon@simonalbrecht.ch> 
-\newcommand{\version}{1.2.1}
 %
 % Based on AltaCV by LianTze Lim <liantze@gmail.com>.
 %
 % Licensed under BSD-3-Clause.
-% Copyright (c) 2019, Simon Albrecht. 
+% Copyright (c) 2019, 2020, Simon Albrecht. 
 % All rights reserved.
 % +++++++++++++++++++++++++++++++++++++++
 \documentclass[11pt, a4paper, ragged2e]{altacv}
@@ -32,7 +31,10 @@
 \newif\ifincludespersonalprojects
 %\includespersonalprojectstrue
 
-% Update the document version here
+% ---------------------------------------
+% Versioning
+% ---------------------------------------
+\newcommand{\version}{\input{VERSION}}
 
 % ---------------------------------------
 % Language, Spell Check, Encoding
@@ -49,6 +51,7 @@
 
 \usepackage{enumitem}
 \usepackage{fontawesome}
+\usepackage[autostyle=true,english=british]{csquotes}
 
 % ---------------------------------------
 % Layout
