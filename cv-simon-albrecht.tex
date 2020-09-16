@@ -11,25 +11,7 @@
 % Copyright (c) 2019, 2020, Simon Albrecht. 
 % All rights reserved.
 % +++++++++++++++++++++++++++++++++++++++
-\documentclass[11pt, a4paper, ragged2e]{altacv}
-
-% ---------------------------------------
-% Content Control
-% ---------------------------------------
-\newif\ifincludestech
-\newif\ifincludestools
-\newif\ifincludesmethods
-\newif\ifincludesselectedprojects
-
-% Show tech, tools, methods, comment following lines
-% to hide them
-\includestechtrue
-\includestoolstrue
-\includesmethodstrue
-%\includesselectedprojectstrue
-
-\newif\ifincludespersonalprojects
-%\includespersonalprojectstrue
+\documentclass[11pt, a4paper, ragged2e, withhyper]{altacv}
 
 % ---------------------------------------
 % Versioning
@@ -46,16 +28,17 @@
 % ---------------------------------------
 % Typography, Colors, Icons
 % ---------------------------------------
-\usepackage[sfdefault, light]{FiraSans}
-\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+\usepackage[sfdefault, light]{plex-sans}
+\renewcommand*\familydefault{\sfdefault}
 
 \usepackage{enumitem}
-\usepackage{fontawesome}
+\usepackage[fixed]{fontawesome5}
 \usepackage[autostyle=true,english=british]{csquotes}
 
 % ---------------------------------------
 % Layout
 % ---------------------------------------
+\usepackage{paracol}
 \usepackage{geometry}
 \geometry{
 	% showframe,
@@ -94,19 +77,17 @@
 % Hyphenation
 % ---------------------------------------
 \hyphenation{DevOps}
+\hyphenation{Avaloq}
 
 % ---------------------------------------
 % Misc
 % ---------------------------------------
-\usepackage[
-	hidelinks,
-	pdfauthor={Simon Albrecht},
-	pdftitle={Curriculum Vitae Simon Albrecht},
-	pdfsubject={Curriculum Vitae},
-	pdfkeywords={simon albrecht, curriculum vitae, cv, resume, biography, latex},
-	pdfcreator={pdflatex},
-	pdflang={en-GB}
-]{hyperref}
+\pdfinfo{
+   /Author (Simon Albrecht)
+   /Title  (CV Simon Albrecht)
+   /Subject (Curriculum Vitae)
+   /Keywords (Curriculum Vitae;CV;Resume;Lebenslauf;Biography;Hiring;Job;LaTex)
+}
 
 % Fix issue with LaTeX error related to dead
 % output cycles: https://github.com/Tufte-LaTeX/tufte-latex/issues/116
@@ -115,24 +96,35 @@
 % ---------------------------------------
 % AltaCV Customisation
 % ---------------------------------------
-\definecolor{Azure}{HTML}{3099BB}
-\definecolor{Charcoal}{HTML}{323232}
-\definecolor{Slate}{HTML}{222222}
+\definecolor{DarkGrey}{HTML}{323232}
+\definecolor{LightGrey}{HTML}{dadada}
+\definecolor{Blue}{HTML}{007bff}
 
-\colorlet{heading}{Charcoal}
-\colorlet{accent}{Azure}
-\colorlet{emphasis}{Slate}
-\colorlet{body}{Charcoal}
-\colorlet{tagline}{Azure}
+\colorlet{name}{DarkGrey}
+\colorlet{tagline}{Blue}
+\colorlet{heading}{DarkGrey}
+\colorlet{headingrule}{LightGrey}
+\colorlet{accent}{Blue}
+\colorlet{body}{DarkGrey}
+\colorlet{bullet}{Blue}
+
+\renewcommand{\namefont}{\Huge\sffamily\bfseries}
+\renewcommand{\taglinefont}{\Large\sffamily}
+\renewcommand{\cvsectionfont}{\Large\sffamily\bfseries}
+\renewcommand{\personalinfofont}{\small}
+
+% Change the bullets for itemize and rating marker
+% for \cvskill if you want to
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{$\bullet$}
+
+% Info Fields
+\NewInfoField{birthday}{\faAsterisk}
+\NewInfoField{nationality}{\faFlag}
+\NewInfoField{maritialstatus}{\faHeart}
+\NewInfoField{locationAlt}{\faMapMarker*}
 
 \renewcommand{\emailsymbol}{\faEnvelope}
-\renewcommand{\homepagesymbol}{\faGlobe}
-\newcommand{\birthsymbol}{\faAsterisk}
-\newcommand{\maritialstatussymbol}{\faHeart}
-\newcommand{\nationalitysymbol}{\faFlag}
-
-% Info element without colored icon
-\renewcommand{\printinfo}[2]{\mbox{\textcolor{body}{\normalfont #1}\hspace{0.5em}#2\hspace{2em}}}
 
 % Custom Skill/Language Rating Marker
 \renewcommand{\ratingmarker}{\faCircle}
@@ -140,9 +132,10 @@
 
 % Skill with normal/thin font instead of bold
 \renewcommand{\cvskill}[2]{%
-\textcolor{emphasis}{#1}\hfill
-\foreach \x in {1,...,5}{%
-  \space{\ifnumgreater{\x}{#2}{\color{body!40}\ratingemptymarker}{\color{accent}\ratingmarker}}}\par%
+	\textcolor{emphasis}{#1}\hfill
+	\foreach \x in {1,...,5}{%
+	  \footnotesize\space{\ifnumgreater{\x}{#2}{\color{LightGrey}}{\color{bullet}}\ratingmarker}}\par%
+	\smallskip
 }
 
 % CV Event with customised fonts and better display of time range and location
@@ -150,37 +143,56 @@
   {\Large\color{emphasis}#1\par}
   \medskip\normalsize
   \ifstrequal{#2}{}{}{
-  	{\color{accent}#2}}\hspace{0.5em}
+  	{#2}}
   \ifstrequal{#3}{}{}{{
-  	\small{\faCalendar\hspace{0.5em}#3}}}\hspace{0.5em}%
+  	\hspace{0.5em}
+  	{#3}}}
   \ifstrequal{#4}{}{}{{
-  	\small{\faMapMarker\hspace{0.5em}#4}}}\par
+  	\hspace{0.5em}
+  	{#4}}}\par
   \medskip\normalsize
 }
 
-% CV Event, where location and time range are on their own separate lines
+% Special CV Event for Education, Volunteering
 \newcommand{\cveventbreak}[4]{%
   {\Large\color{emphasis}#1\par}
   \medskip\normalsize
   \ifstrequal{#2}{}{}{
-  	{\color{accent}#2}}
+  	{#2}}\par
   \ifstrequal{#3}{}{}{{
-  	\par\smallskip\small{\faCalendar\hspace{0.5em}#3}}}\hspace{0.5em}%
+  	{#3}}}\par
   \ifstrequal{#4}{}{}{{
-  	\par\smallskip\small{\faMapMarker\hspace{0.5em}#4}}}\par
+  	{#4}}}\par
   \medskip\normalsize
 }
 
+% Custom strength macro
+\newcommand{\cvstrength}[2]{
+	{\Large\color{emphasis}#1\par}
+  \medskip\normalsize
+  {#2}\par
+}
+
 % Solid rule divider
-\renewcommand{\divider}{\textcolor{body!30}{\rule{\linewidth}{0.5pt}}\medskip}
+\renewcommand{\divider}{\textcolor{LightGrey}{\rule{\linewidth}{0.5pt}}\medskip}
 
 % Section with thiner line and more spacing
 \renewcommand{\cvsection}[2][]{%
   \bigskip%
   \ifstrequal{#1}{}{}{\marginpar{\vspace*{\dimexpr1pt-\baselineskip}\raggedright\input{#1}}}%
-  {\color{heading}\LARGE\bfseries\MakeUppercase{#2}}\\[-0.5ex]%
-  {\color{body!60}\rule{\linewidth}{0.5pt}\par}\medskip
+  {\color{heading}\cvsectionfont\MakeUppercase{#2}}\\%
+  {\color{headingrule}\rule{\linewidth}{0.5pt}\par}\bigskip
 }
+
+% Personal info field without colored icon and smaller text
+\RenewDocumentCommand{\printinfo}{m m o}{%
+  \IfNoValueTF{#3}{%
+    \mbox{{\small #1}~\utffriendlydetokenize{#2}\hspace{0.5em}}%
+  }{%
+      \mbox{{\small #1}~
+      \href{#3}{\utffriendlydetokenize{#2}}\hspace{0.5em}}
+  }%
+}%
 
 % +++++++++++++++++++++++++++++++++++++++
 % Document
@@ -188,104 +200,281 @@
 
 \begin{document}
 	\name{Simon Albrecht}
-	\tagline{\color{tagline}\normalfont\Large Full-Stack Software Engineer}
+	\tagline{Full-Stack Software Engineer}
 	
 	\personalinfo{
 		\medskip
 		
-		\printinfo{\birthsymbol}{\normalfont 1994}
-		\printinfo{\nationalitysymbol}{\normalfont Swiss}
-		\printinfo{\maritialstatussymbol}{\normalfont Single}
-		\location{\normalfont Zurich, Switzerland}
+		\birthday{1994}
+		\nationality{Swiss}
+		\maritialstatus{Single}
+		\locationAlt{Zurich, Switzerland}
 	
-		\smallskip
+		\medskip
 		
-		\phone{\normalfont On request}
-		\email{\href{mailto://simon@simonalbrecht.ch}{\normalfont simon@simonalbrecht.ch}}
-		\homepage{\href{https://simonalbrecht.ch}{\normalfont simonalbrecht.ch}}
-		\linkedin{\href{https://linkedin.com/in/simonalbrecht}{\normalfont simonalbrecht}}
-		\github{\href{https://github.com/simonalbrecht}{\normalfont simonalbrecht}}
+		\phone{On request}
+		\email{simon@simonalbrecht.ch}
+		\linkedin{simonalbrecht}
+		\github{simonalbrecht}
+		\homepage{simonalbrecht.ch}
 	}
-	
 \pagestyle{default}
-		
-% Make header extend full width of the page
-\begin{fullwidth}
-	\makecvheader
-\end{fullwidth}	
+\makecvheader
 
 % Two column layout
-\setcolumnwidth{0.6\textwidth, 0.4\textwidth}
-\setlength{\columnsep}{3em}
+\columnratio{0.65}
+\setlength{\columnsep}{30pt}
 
 \begin{paracol}{2}
-\begin{leftcolumn}
+
 
 	% ---------------------------------------
 	% Experience
 	% ---------------------------------------
 	\cvsection{Experience}
-	\input{cv/experience.tex}
 	
-	% ---------------------------------------
-	% Projects
-	% ---------------------------------------
-	\ifincludespersonalprojects
-		\cvsection{Personal Projects}
-		\input{cv/projects.tex}
-	\fi
-	
-\end{leftcolumn}
-\begin{rightcolumn}
+	\cvevent{Senior Software Engineer}{\href{https://www.aiaibot.com/}{aiaibot (swiss moonshot AG)}}{Aug 2019 -- present}{Zurich}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Senior Frontend Engineer, responsible for web development and architecture as well as user interface development of a Conversational AI / Chatbot SaaS platform.
+		\item Developed the web-based realtime Chat Client that integrates easily and transparently into user web sites with a single line of code.
+		\item Core product team member. Worked closely with UI/UX Designers, Product Owners and Software Engineers taking the product from idea to fully-featured platform.
+		\item Part of the DevOps team, carrying out production releases, monitoring operations and infrastructure and automating deployments.
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+		\small
+		\item [Technologies:] Javascript (ES6), Vue.js, Vuex, Vue Router, Nuxt.js, Bulma, Sass, HTML5, socket.io, Websockets, REST API, JSON, Python, Flask, Docker, Kubernetes, Google Cloud, Zeit/Vercel\smallskip
+		\item [Tools:] Slack, JIRA, Confluence, GitHub, GitHub Actions, IntelliJ, Abstract, Storybook, Cypress, Jest, Sentry\smallskip
+		\item [Methodologies:] Iterative Development, Agile (SCRUM, Kanban), Component-based Development, DevOps, Continuous Integration \& Deployment
+	\end{description}
+
+	\bigskip\bigskip
+
+	\cvevent{Full-Stack Software Engineer}{\href{https://www.ubs.com/ch/en.html}{UBS}}{Jul 2017 -- Apr 2019}{Zurich}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Lead Frontend Engineer, oversaw web application development and architecture.
+		\item Worked closely with UI/UX Designers and clients; conducted design workshops and product demos. Mentored Junior Software Engineers.
+		\item Designed, built and maintained Cloud infrastructure (Amazon Web Services, AWS); running containerized applications in a microservices fashion.
+		\item Setup Continuous Integration and Continuous Deployment pipelines as well as monitoring and alerting to enable a DevOps approach.
+		\item Advised, coached and presented tech talks to business and IT stakeholders regarding Cloud adoption and Cloud-first development.
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+	\small
+		\item [Technologies:] Typescript, Javascript (ES6), Angular (4+), NgRx (Redux), RxJS, Bootstrap, Karma, Jasmine, AWS, Terraform, Docker, REST API, JSON, gRPC, Java 8 EE, Spring, Spring Boot, Redis\smallskip
+		\item [Tools:] JIRA, Confluence, Bitbucket, Bitbucket Pipelines, Git, WebStorm, IntelliJ, InVision\smallskip
+		\item [Methodologies:] Iterative Prototyping, Design Thinking, Agile (SCRUM), Functional Programming, Microservice Architecture, Infrastructure as Code, DevOps, Continuous Integration \& Deployment
+	\end{description}
+
+	\bigskip\bigskip
+
+	\cvevent{Full-Stack Software Engineer}{\href{https://www.mimacom.com/}{mimacom}}{Oct 2016 -- Jun 2017}{Zurich \& Berne}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item On-site technical consulting for Software Engineering projects, specialized in Frontend Development.
+		\item Full-Stack development of prototypes and tools, in-house and for clients.
+		\item Provided development capacity and bug fixes for projects nearing deadline or with tight resources.
+	\end{itemize}
+
+	\bigskip
+	\textbf{\small{Selected Projects}}:
+	\smallskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\small
+		\item \href{https://www.ebill.ch/}{eBill}, previously E-Rechnung for \href{https://www.six-group.com/en/site/banking-services/paynet.html}{SIX Paynet} \& Postfinance.
+		\item Web component development using Avaloq Front Platform (\href{https://developer.avaloq.com/web/developer-portal/learn}{Banklet™}) for \href{https://www.avaloq.com/en/}{Avaloq}.
+		\item \enquote{\href{https://blog.alertswiss.ch/de/rubriken/bevoelkerungsschutz/koordinierter-sanitaetsdienst-ksd-neues-management-tool-blue-screen-switzerland/}{KSD Bluescreen}}, web application for coordination of basic medical care in emergency/crisis situations for the Swiss Army (\href{https://www.vtg.admin.ch/de/organisation/astab/san/ksd.html}{Koordinierter Sanitätsdienst}).
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+		\small
+		\item [Technologies:] Java 8 (EE), Spring, Spring Boot, Apache Maven, AngularJS, Angular (2+), Typescript, Javascript (ES6), Karma, Jasmine, Protractor, CucumberJS, REST API, JSON, SOAP, Oracle, MySQL, Elasticsearch\smallskip
+		\item [Tools:] JIRA, Confluence, Bamboo/Bitbucket, Jenkins, IntelliJ, Git, BrowserStack\smallskip
+		\item [Methodologies:] Agile (SCRUM), Behaviour Driven Development, Domain Driven Design, Service Oriented Architecture
+	\end{description}
+
+	\bigskip\bigskip
+
+	\cvevent{Full-Stack Software Engineer}{\href{https://www.fides.ch}{Fides Treasury Services}}{Aug 2013 -- Oct 2016}{Zurich}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Lead Frontend Engineer and web expert on flagship products used by customers worldwide.
+		\item Full-Stack development and maintenance of various applications used by large Swiss corporates for payment processing via SWIFT \& IBM MQ (including Sanction Screening).
+		\item Implemented Continuous Integration and Continuous Deployment solutions and workflows. 
+		\item 3rd level support of legacy applications.
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+	\small
+		\item [Technologies:] Java 8 (EE), Spring, Spring Boot, JUnit, Mockito, Apache Maven, Apache Camel, IBM MQ, Javascript, AngularJS, jQuery, Bootstrap, Node.js, HTML5, CSS3, REST API, JSON, XML, ISO20022, SWIFT, MSSQL\smallskip
+		\item [Tools] JIRA, Confluence, Jenkins, Sonatype Nexus, SonarSource, SVN, Tomcat, IntelliJ, Eclipse\smallskip
+		\item [Methodologies] Extreme Programming, Agile (SCRUM), Waterfall, Test Driven Development, Service Oriented Architecture
+	\end{description}
+
+	\newpage
+
+	\cvevent{Junior Software Engineer (Apprentice)}{\href{https://www.swisscard.ch/en/}{Swisscard AECS}}{Nov 2012 -- Aug 2013}{Zurich, Switzerland}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Intern as part of Credit Suisse Apprenticeship program.
+		\item Developed web application for credit card risk scoring based on statistical models.
+		\item Developed an application to correct discrepancies and inconsistencies of credit card and transaction data.
+		\item Maintained and improved various backend applications and tools for credit card payment processing.
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+		\small
+		\item [Technologies:] Java 7 (EE), Spring, JUnit, Aquillian, Apache Maven, JSF, jQuery, Ajax, Bootstrap, SOAP, XML \& XSLT, XSD
+		\item [Tools:] JIRA, Jenkins, SVN, IBM WebSphere Application Server, Eclipse
+		\item [Methodologies:] Extreme Programming, Test Driven Development, Service Oriented Architecture
+	\end{description}
+
+	\bigskip\bigskip
+
+	\cvevent{Junior Software Engineer (Apprentice)}{\href{https://www.credit-suisse.com/ch/en.html}{Credit Suisse}}{Aug 2009 -- Nov 2012}{Zurich, Switzerland}
+
+	\bigskip
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Developed software modules and applications for error handling, tracing and reporting for IBM z/OS mainframe systems used in end-of-day processing.
+		\item Maintained and continued development on a web application used to test an extensive CORBA mainframe service.
+		\item Migrated applications from Java 6 to Java 7.
+	\end{itemize}
+
+	\bigskip
+	\begin{description}
+		\small
+		\item [Technologies:] Java 6 (EE), Java 7 (EE), JSF, Struts, CORBA, PL/1, IBM z/OS, IBM DB2, IBM IMS, JCL
+		\item [Tools:] MS Project, TN3270 Terminal, Eclipse
+	\end{description}
+		
+	\switchcolumn
 	
 	% ---------------------------------------
 	% Education
 	% ---------------------------------------
 	\cvsection{Education}
-	\input{cv/education.tex}
+	\cveventbreak{BSc Computer Science}{\href{https://www.ffhs.ch/}{Fernfachhochschule Schweiz (FFHS)}}{Sept 2017 -- present}{}
+
+	\bigskip
+	\cveventbreak{Berufsmatura}{\href{https://www.bzz.ch/}{Bildungszentrum Zürichsee (BZZ)}}{Aug 2009 -- Aug 2013}{}
+
+	\bigskip
+	\cveventbreak{Informatiker EFZ \\\small{Software Development}}{\href{https://www.bzz.ch/}{Bildungszentrum Zürichsee (BZZ)}}{Aug 2009 -- Aug 2013}{}
 
 	% ---------------------------------------
-	% Strengths
+	% Profile
 	% ---------------------------------------
 	\cvsection{Strengths}
-	\input{cv/strengths.tex}
+	\cvstrength{Truly Full-Stack}{I understand the full stack -- from complex web applications to backend services to containers to infrastructure on the cloud.}
+
+	\bigskip
+	\cvstrength{Doer}{I enjoy getting my hands dirty and am always up to a challenge}
+
+	\bigskip
+	\cvstrength{Quick Learner}{I can quickly learn and adapt to new domains and unfamiliar technology.}
+	
+	\bigskip
+	\cvstrength{Eye for Details}{I enjoy taking care of the small details to deliver a fantastic customer experience from start to finish.}
 
 	\newpage
-
+	
 	% ---------------------------------------
 	% Certifications
 	% ---------------------------------------
 	\cvsection{Certifications}
-	\input{cv/certifications.tex}
+	% Date: January 2019
+	\cveventbreak{\href{https://www.ireb.org/en/cpre/foundation/}{Certified Professional for Requirements Engineering}}{\href{https://www.ireb.org/en}{International Requirements Engineering Board (IREB)}}{}{}
 
+	% Date: April 2017
+	\bigskip
+	\cveventbreak{\href{https://www.elastic.co/training/elasticsearch-engineer-1}{Elasticsearch Engineer I}}{\href{https://elastic.co}{elastic}}{}{}
+
+	% Date: January 2011
+	\bigskip
+	\cveventbreak{\href{https://cyp.ch/smart-education/bankfit}{BankFIT: Banking and Financial Education for IT}}{\href{https://cyp.ch}{Center for Young Professionals in Banking (CYP)}}{}{}
+
+	% ---------------------------------------
+	% Projects
+	% ---------------------------------------
+	\cvsection{Personal Projects}
+	
+	\cveventbreak{\href{https://www.nome.io}{nome.io}}{Co-Founder \& CTO}{}{}
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Startup focused on personal branding, social media and online identity.
+	\end{itemize}
+	
+	\bigskip
+	
+	% https://web.archive.org/web/20111127060913/http://www.macstories.net/iphone/stage-review
+	\cveventbreak{Stage}{Software Engineer \& Designer}{October 2009 -- January 2011}{}
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item iOS application that allowed users to share music to their social media networks (Twitter, Facebook)
+		\item Reached top 10 paid app on Swiss App Store within first 3 days
+	\end{itemize}
+
+	\bigskip
+	
+	% http://web.archive.org/web/*/www.iphone360.ch
+	\cveventbreak{iPhone360}{Editor in Chief}{August 2008 -- February 2011}{}
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Weblog about Apple ecosystem, iOS apps
+		\item 1.9 mio total page views
+	\end{itemize}
+
+	\newpage
+	
 	% ---------------------------------------
 	% Volunteering
 	% ---------------------------------------
 	\cvsection{Volunteering}
-	\input{cv/volunteering.tex}
+	\cveventbreak{Supervisor of Apprentices \\\small{Berufsbildner}}{Fides Treasury Services}{Jul 2016 -- Oct 2016}{}
 
-	\newpage
+	% Lehrlingsbetreuer
+	\bigskip
+	\cveventbreak{Coaching of Apprentices\\\small{Betreuung der Lernenden}}{Fides Treasury Services}{Oct 2014 -- Jul 2016}{}
+
+	\bigskip
+	\cveventbreak{Medical Safety Officer \& First Aid Responder}{Fides Treasury Services}{Mar 2015 -- Oct 2016}{}
 
 	% ---------------------------------------
 	% Languages
 	% ---------------------------------------
 	\cvsection{Languages}
-	\input{cv/languages.tex}
+	\cvskill{German}{5}
+	\cvskill{English}{4}
+	\cvskill{French}{2}
 	
 	% ---------------------------------------
 	% Interests
 	% ---------------------------------------
 	\cvsection{Interests}
-	\input{cv/interests.tex}
+	\begin{itemize}[label=\color{bullet}\textbullet]
+		\item Photography
+		\item Traveling
+		\item Cooking
+		\item Video Games
+		\item Technology
+	\end{itemize}
 
 	% ---------------------------------------
 	% References
 	% ---------------------------------------
 	\cvsection{References}
-	\input{cv/references.tex}
+	On request.
 	
 
-\end{rightcolumn}
 \end{paracol}
 
 \thispagestyle{last-page}
