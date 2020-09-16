@@ -4,7 +4,7 @@ This repository contains the LaTex sources for [Simon Albrecht](https://simonalb
 
 ![Preview ](images/preview.png)
 
-The layout is based on the [AltaCV](https://github.com/liantze/AltaCV) template. The font is [Fira Sans](https://mozilla.github.io/Fira/).
+The layout is based on the [AltaCV](https://github.com/liantze/AltaCV) template. The font is [IBM Plex Sans](https://www.ibm.com/plex/).
 
 ## Download
 * Download the [latest version of the CV](https://simonalbrecht.ch/cv)
@@ -17,5 +17,5 @@ The layout is based on the [AltaCV](https://github.com/liantze/AltaCV) template.
 ## Copyright and license
 Licensed under the BSD-3-Clause license.  
 
-Copyright (c) 2019, Simon Albrecht  
+Copyright (c) 2019, 2020 Simon Albrecht  
 All right reserved.
