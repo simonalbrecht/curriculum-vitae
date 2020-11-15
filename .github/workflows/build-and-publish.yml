@@ -19,7 +19,6 @@ jobs:
         uses: dante-ev/latex-action@master
         with:
           root_file: cv-simon-albrecht.tex
-          args: -pdf
       - name: Archive compiled PDF
         uses: actions/upload-artifact@v1
         with:
