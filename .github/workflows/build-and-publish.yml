@@ -11,20 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
-    - name: Compile LaTeX
-      uses: dante-ev/latex-action@master
-      with:
-        root_file: cv-simon-albrecht.tex
-        args: -pdf
-    - name: Archive compiled PDF
-      uses: actions/upload-artifact@v1
-      with:
-        name: build
-        path: cv-simon-albrecht.pdf
+      - name: Checkout source
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Compile LaTeX
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: cv-simon-albrecht.tex
+          args: -pdf
+      - name: Archive compiled PDF
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: cv-simon-albrecht.pdf
 
   publish:
     name: Publish compiled PDF
@@ -45,13 +45,11 @@ jobs:
         run: cp "./build/cv-simon-albrecht.pdf" "./build/cv-simon-albrecht-$(cat ./VERSION).pdf"
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: eu-central-1
+          AWS_REGION: us-west-001
+          AWS_S3_ENDPOINT: s3.us-west-001.backblazeb2.com
           SOURCE_DIR: build
           DEST_DIR: cv
-    

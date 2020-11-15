@@ -1,0 +1,101 @@
+%!TEX TS-program = pdflatex
+%!TEX encoding = UTF-8 Unicode
+
+% +++++++++++++++++++++++++++++++++++++++
+% Cover Letter
+% Author: Simon Albrecht <simon@simonalbrecht.ch> 
+% Licensed under BSD-3-Clause.
+% Copyright (c) 2020, Simon Albrecht. 
+% All rights reserved.
+% +++++++++++++++++++++++++++++++++++++++
+\documentclass[
+	version=last,
+	SN, % lco file for swiss letters (SN 010 130))
+	refline=dateleft,
+	firsthead=true,
+	firstfoot=true,
+	enlargefirstpage=true,
+	backaddress=false,
+	addrfield=alignedtop, % true
+	foldmarks=false,
+	parskip=half-,
+	fromalign=left,
+	frommobilephone=true,
+	fromemail=true,
+	fromrule=afteraddress,
+	subject=left,
+	headsepline=false,
+	footsepline=false,
+	pagenumber=footright
+]{scrlttr2}
+
+% ---------------------------------------
+% Language, Spell Check, Encoding
+% ---------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[german=swiss]{csquotes}
+\selectlanguage{ngerman}
+
+% ---------------------------------------
+% Typography, Colors, Icons
+% ---------------------------------------
+\usepackage[sfdefault, light]{plex-sans}
+\renewcommand*\familydefault{\sfdefault}
+
+\setkomafont{fromname}{\sffamily}
+\setkomafont{fromaddress}{\sffamily}
+\setkomafont{addressee}{\sffamily}
+\setkomafont{refvalue}{\sffamily}
+\setkomafont{lettersubject}{\bfseries\sffamily}
+% ---------------------------------------
+% Variables
+% ---------------------------------------
+\newcommand{\jobprofile}{Senior Software Engineer}
+\newcommand{\companyname}{Musterfirma AG}
+\newcommand{\companyco}{c/o Human Ressources}
+\newcommand{\companystreet}{Musterstrasse 1}
+\newcommand{\companycity}{8000 Zürich}
+
+\setkomavar{fromname}{Simon Albrecht}
+\setkomavar{fromaddress}{Musterstrasse 1\\8000 Zürich}
+\setkomavar{frommobilephone}{+41 79 685 30 63}
+\setkomavar{fromemail}{simon@simonalbrecht.ch}
+\setkomavar{date}{Zürich, den \today}
+\setkomavar{subject}{Bewerbung als \jobprofile}
+
+% ---------------------------------------
+% Misc
+% ---------------------------------------
+\pdfinfo{
+   /Author (Simon Albrecht)
+   /Title  (Bewerbungsschreiben Simon Albrecht)
+   /Subject (Bewerbungsschreiben)
+   /Keywords (Bewerbung;Bewerbungsschreiben;Hiring;Job;LaTex)
+}
+
+\usepackage{blindtext}
+
+% +++++++++++++++++++++++++++++++++++++++
+% Document
+% +++++++++++++++++++++++++++++++++++++++
+\makeatletter
+  \@setplength{firstheadwidth}{\textwidth}
+\makeatother
+
+\renewcommand\raggedsignature{\raggedright}
+
+\begin{document}
+  \sffamily
+  
+  \begin{letter}{\companyname\\\companyco\\\companystreet\\\companycity}
+    
+    \opening{Sehr geehrte Damen und Herren,}
+    
+    \Blindtext
+        
+    \closing{Vielen Dank und freundliche Grüsse}
+    \encl{Lebenslauf, Arbeitszeugnisse}
+  \end{letter}
+\end{document}
